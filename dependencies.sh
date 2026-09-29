@@ -26,6 +26,12 @@ fi
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
+# Log único: sobrescrito a cada execução (não acumula entre rodadas), e
+# ainda aparece no terminal (tee), não só no arquivo.
+LOG_FILE="$SCRIPT_DIR/dependencies.log"
+exec > >(tee "$LOG_FILE") 2>&1
+echo "Log desta instalação em: $LOG_FILE"
+
 # ============================================================
 # Versões validadas em 2026-08-29 (mesma VM de experimentos do grupo,
 # ver infra/setup.sh do projeto PIBIC). Cada uma tenta instalar essa versão
