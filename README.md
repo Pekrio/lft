@@ -42,7 +42,8 @@ sudo ./dependencies.sh
 ```
 
 `dependencies.sh` does everything, in order, and is idempotent (safe to
-rerun after a partial/failed run):
+rerun after a partial/failed run). The full output also goes to
+`dependencies.log` (overwritten on every run):
 
 1. OS packages: Docker CE + Compose plugin, Open vSwitch, iproute2/iptables,
    Python 3 + venv, firewalld (installed, not enabled), nfdump, git, tmux —
