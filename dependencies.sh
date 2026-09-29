@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
 #
-# dependencies.sh — instala os pacotes de sistema que o LFT precisa para
-# emular topologias (Docker, Open vSwitch, ferramentas de rede) e o Python
-# necessário para instalar o pacote (`pip install -e .` faz o resto, lendo
-# install_requires do setup.py).
+# dependencies.sh — único script de instalação do LFT. Um comando, do zero
+# a pronto para rodar experimentos: pacotes de sistema (Docker, Open vSwitch,
+# ferramentas de rede), o pacote Python (venv + `pip install -e .`, versões
+# pinadas em setup.py) e as imagens Docker que os experimentos ONOS
+# precisam (ONOS, OVS, iperf).
 #
-# Uso:
+# Uso (a partir da raiz deste repositório, já clonado):
 #   chmod +x dependencies.sh
 #   sudo ./dependencies.sh
 #
@@ -22,6 +23,8 @@ if [ "$(id -u)" -ne 0 ]; then
     echo "Rode como root (sudo ./dependencies.sh)" >&2
     exit 1
 fi
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # ============================================================
 # Versões validadas em 2026-08-29 (mesma VM de experimentos do grupo,
@@ -105,4 +108,18 @@ apt_install_pinned nfdump "$PIN_NFDUMP"
 log "Instalando git e tmux"
 apt-get install -y git tmux
 
-log "Pronto. Próximo passo: pip install -e . (dentro de um venv, de preferência)"
+log "Criando venv e instalando o pacote (versões pinadas em setup.py)"
+cd "$SCRIPT_DIR"
+[ -d .venv ] || python3 -m venv .venv
+.venv/bin/pip install --upgrade pip
+.venv/bin/pip install -e .
+
+log "Baixando imagem ONOS 2.5.0"
+docker pull onosproject/onos:2.5.0
+
+log "Buildando imagens Docker do LFT (openvswitch, iperf)"
+docker build -t alexandremitsurukaihara/lst2.0:openvswitch docker/openswitch
+docker build -t lft-iperf docker/iperf
+
+log "Pronto. Rodar um experimento:"
+echo "  sudo $SCRIPT_DIR/.venv/bin/lft experiment diamond --mode fwd --hindering degrade --run-name teste-01"

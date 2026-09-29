@@ -32,32 +32,32 @@ supervisor drift modes. Mode IDs differ between scenarios; see
 
 ## 2. Installation
 
+One script, one command, from a fresh clone to ready-to-run:
+
 ```bash
 git clone https://github.com/UnB-COMNET/lft
 cd lft
 chmod +x dependencies.sh
-sudo ./dependencies.sh      # Docker, Open vSwitch, iproute2/iptables, Python, git, tmux
-python3 -m venv .venv && source .venv/bin/activate
-pip install -e .            # pulls the pinned versions from setup.py
+sudo ./dependencies.sh
 ```
 
-`dependencies.sh` only installs OS-level packages; Python dependencies are
-declared and version-pinned in `setup.py`'s `install_requires` and come from
-the `pip install -e .` step above. Both are idempotent — rerunning either
-after a partial install is safe.
+`dependencies.sh` does everything, in order, and is idempotent (safe to
+rerun after a partial/failed run):
 
-## 2.1 Build Docker Images
-
-```bash
-sudo docker pull onosproject/onos:2.5.0
-sudo docker build -t alexandremitsurukaihara/lst2.0:openvswitch docker/openswitch
-sudo docker build -t lft-iperf docker/iperf
-```
+1. OS packages: Docker CE + Compose plugin, Open vSwitch, iproute2/iptables,
+   Python 3 + venv, firewalld (installed, not enabled), nfdump, git, tmux —
+   pinned versions, falls back to latest with a warning if a pin is gone.
+2. `.venv` + `pip install -e .` — installs this package with the versions
+   pinned in `setup.py`'s `install_requires`.
+3. Docker images the ONOS experiments need: pulls `onosproject/onos:2.5.0`,
+   builds `alexandremitsurukaihara/lst2.0:openvswitch` and `lft-iperf` from
+   `docker/`.
 
 CDN-QoE/LLM/Threshold modes also need externally supplied `deployer` and
 `supervisor` images — see [REIN's own setup](https://github.com/UnB-COMNET/REIN)
 in `sistemas/REIN` if you're working inside the PIBIC project, or your own
-build of those services otherwise.
+build of those services otherwise. `dependencies.sh` does not build these;
+they come from a different repository.
 
 ## 3. CLI
 
@@ -119,12 +119,12 @@ services, batches and validation requirements.
 
 If you face an issue running any LFT command:
 
-1. Check that `dependencies.sh` ran without errors and that `pip install -e .`
-   completed (`sudo lft` should print the banner, not an import error).
+1. Check that `dependencies.sh` ran to completion (`sudo lft` should print
+   the banner, not an import error) — rerun it, it's idempotent.
 2. Check for leftover containers from a previous run: `docker ps -a`. Remove
    them with `sudo lft utils clean` or `docker rm -f <name>`.
 3. Verify the images this experiment needs exist locally (`docker images`) —
-   see §2.1 and, for CDN-QoE/LLM/Threshold, the `deployer`/`supervisor`
+   see §2 and, for CDN-QoE/LLM/Threshold, the `deployer`/`supervisor`
    images from REIN.
 4. ⚠️ Cleanup routines remove **all** Docker containers on the host. Use a
    dedicated machine, not your daily driver.
