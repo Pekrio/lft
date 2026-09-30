@@ -1,49 +1,30 @@
-# Documentação DokuWiki do LFT
+# LFT DokuWiki Documentation Suite
 
-Este diretório contém a documentação completa do framework **LFT (Lightweight Fog Testbed)** no formato nativo de marcação **DokuWiki** (`.txt`).
+This directory contains the full documentation suite for the **Lightweight Fog Testbed (LFT)** in native **DokuWiki** syntax (`.txt`).
 
-## Estrutura dos Arquivos
+## Directory Structure
 
 ```
 dokuwiki/
-├── sidebar.txt                 # Menu lateral de navegação da wiki
-├── start.txt                   # Página inicial e índice geral
-├── instalacao.txt              # Requisitos de sistema e procedimentos de instalação
-├── arquitetura.txt             # Arquitetura (namespaces, veth, OVS, roteamento e NAT)
-├── api_referencia.txt          # Referência completa de classes, métodos e parâmetros
-├── sdn_topologias.txt          # Guia de construção de topologias SDN programáveis
-├── exemplos_topologias.txt     # Exemplos práticos de código comentados (examples/)
-├── srsran_4g.txt               # Emulação de redes celulares 4G/LTE com srsRAN
-├── docker_imagens.txt          # Catálogo e especificação das imagens Docker
-├── cenario_seguranca.txt       # Documentação do cenário de segurança UNBCA / CIDDS
-├── experimentos_benchmarks.txt # Guias de experimentos, benchmarks e métricas
-├── troubleshooting.txt         # Guia de diagnóstico e resolução de problemas
-├── LFT_MANUAL_COMPLETO.txt     # Manual mestre compilado em uma única página
-└── README.md                   # Este arquivo de instruções
+├── sidebar.txt                 # Wiki navigation sidebar
+├── start.txt                   # Home / Main index
+├── installation.txt            # System requirements and installation
+├── architecture.txt            # Core architecture and network primitives
+├── api_reference.txt           # Complete API reference
+├── sdn_topologies.txt          # Programmable SDN topologies
+├── code_examples.txt           # In-depth walkthrough of all 8 examples
+├── experiments_benchmarks.txt  # Deployment & network performance benchmarks
+├── security_scenario.txt       # UNBCA / CIDDS security intrusion scenario
+├── wireless_4g.txt             # 4G/LTE mobile network emulation
+├── docker_images.txt           # Technical catalog of Docker images
+├── troubleshooting.txt         # Diagnostics and teardown procedures
+└── LFT_MASTER_MANUAL.txt       # Unified single-page master manual
 ```
 
----
+## Importing into a DokuWiki Server
 
-## Como Integrar com uma Instalação DokuWiki
-
-Em um servidor rodando o DokuWiki (ex.: intranet do laboratório COMNET):
-
-1. Copie ou sincronize os arquivos `.txt` deste diretório para a pasta de páginas (`data/pages/`) do DokuWiki:
-   ```bash
-   # Exemplo: publicando no namespace "lft"
-   mkdir -p /var/www/dokuwiki/data/pages/lft/
-   cp dokuwiki/*.txt /var/www/dokuwiki/data/pages/lft/
-   ```
-2. Ajuste as permissões para o servidor web (ex.: `chown -R www-data:www-data /var/www/dokuwiki/data/pages/lft/`).
-3. Acesse via navegador: `http://seu-servidor/doku.php?id=lft:start`.
-
----
-
-## Como Integrar com o GitHub Wiki
-
-Se desejar sincronizar com o GitHub Wiki do repositório:
-1. Clone o repositório de wiki do projeto:
-   ```bash
-   git clone https://github.com/UnB-COMNET/lft.wiki.git
-   ```
-2. Os arquivos podem ser convertidos para Markdown (`.md`) ou sincronizados diretamente com scripts auxiliares de conversão (ex.: `pandoc -f dokuwiki -t gfm`).
+Copy the `.txt` files into your DokuWiki pages directory:
+```bash
+sudo cp dokuwiki/*.txt /var/www/dokuwiki/data/pages/lft/
+sudo chown -R www-data:www-data /var/www/dokuwiki/data/pages/lft/
+```

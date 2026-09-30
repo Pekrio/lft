@@ -1,51 +1,65 @@
-# Lightweight Fog Testbed (LFT)
-## Description
-LFT is a framework designed to facilitate the creation of lightweight network topologies with ease. Using Docker containers, it is possible to add any container to the network to provide network services or even emulate network devices, such as switches, controllers (in Software Defined Networking). This project has integration with OpenvSwitch to emulate the network forwarding devices and srsRAN 4G to emulate wireless links for Fog and Edge application scenarios.
+<p align="center"><img src="logos/lft-github.png" width="450" alt="LFT Logo"></p>
 
-## 1. Requirement
-This framework was developed and tested on Ubuntu Desktop 24.04 LTS. We recommend this Linux version.
+# Lightweight Fog Testbed (LFT)
+
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](LICENSE)
+[![Python: 3.9+](https://img.shields.io/badge/python-3.9+-brightgreen.svg)](https://www.python.org/)
+[![Wiki](https://img.shields.io/badge/docs-GitHub%20Wiki-orange.svg)](https://github.com/UnB-COMNET/lft/wiki)
+
+## Description
+LFT is a high-performance Python framework designed to orchestrate lightweight, containerized network emulation topologies with ease. Using Docker containers and Linux network namespaces, it allows researchers and engineers to construct arbitrary network topologies, emulate switches (Open vSwitch), SDN controllers (Ryu), cellular links (srsRAN 4G/LTE), and security attack scenarios with CICFlowMeter and perfSONAR integration.
+
+## 1. Requirements
+- **Operating System**: Ubuntu Desktop / Server 24.04 LTS (recommended) or macOS via OrbStack/Docker.
+- **Kernel**: Linux 5.15+ with network namespaces, `veth`, and Open vSwitch support.
+- **Python**: Python 3.9+ with `pip`.
+- **Docker**: Docker Engine 24.0+.
 
 ## 2. Installation
-To install the project you need to run:
-
-```
+Install the project via `pip3`:
+```bash
 pip3 install profissa_lft
 ```
 
-In case of any missing dependency you can manually clone the repository and run the dependencies script:
-
-```
-git clone https://github.com/alexandrekaihara/lft
+Or install from source:
+```bash
+git clone https://github.com/UnB-COMNET/lft.git
 cd lft
-chmod +X dependencies.sh
+chmod +x dependencies.sh
 ./dependencies.sh
+pip3 install -e .
 ```
 
-## 3. First run
-On the source root of the project run:
-
-```
+## 3. Quick Start
+Run a simple Software-Defined Network topology:
+```bash
 cd examples
 python3 simpleSDNTopology.py
 ```
 
 ## 4. Troubleshooting
-If you face any issue while running any LFT scrips:
-1. Check if all dependencies are installed
-2. Check if you are using the correct version of Ubuntu Desktop
-3. Check if the containers are already instantiated on docker ```docker ps -a```. If so, then remove them by using ```docker system prune``` or forcefully stop them ```docker rm -f containerName```
-4. Verify if the docker image that you are trying to instantiate with LFT exists on your local machine ```docker images``` or exists on [Docker Hub|https://hub.docker.com/].
-5. Check if the image was built correctly. See docker folder for more information.
+If you encounter any issues:
+1. Verify system dependencies: `./dependencies.sh`.
+2. Check if lingering containers are active: `docker ps -a` (run `docker rm -f $(docker ps -aq)` to clean up).
+3. Ensure required Docker images are available locally: `docker images`.
+4. Consult the [Troubleshooting Guide](https://github.com/UnB-COMNET/lft/wiki/Troubleshooting) or [`docs/Troubleshooting.md`](docs/Troubleshooting.md).
 
 ## 5. Documentation
-- **Interactive Wiki (GitHub Wiki)**: Accessible directly on [UnB-COMNET/lft Wiki](https://github.com/UnB-COMNET/lft/wiki), with full sidebar navigation, diagrams, and quick references.
-- **Markdown Documentation**: Available locally in the [`docs/`](docs/) directory for offline browsing and direct GitHub repository navigation.
-- **DokuWiki Source Files**: Native DokuWiki syntax files available in [`dokuwiki/`](dokuwiki/) for importing directly into self-hosted lab or university DokuWiki servers.
+Complete, in-depth documentation is available across multiple formats:
 
-The documentation covers:
-- **API Reference**: Detailed breakdown of every class (`Node`, `Host`, `Switch`, `SwitchMeter`, `Controller`, `CICFlowMeter`, `EPC`, `EnB`, `UE`, `Perfsonar`) and method.
-- **Architecture**: Linux network namespaces, `veth` pairs, OVS, and NAT.
-- **Topologies & Examples**: Full guides with code for SDN, multi-subnet, multi-controller, NetFlow, and 4G/LTE.
-- **Security Scenario**: UNBCA / CIDDS attack environment reproduction.
-- **Single-page Master Manual**: [`docs/Manual-Completo.md`](docs/Manual-Completo.md) and [`dokuwiki/LFT_MANUAL_COMPLETO.txt`](dokuwiki/LFT_MANUAL_COMPLETO.txt).
+- **Interactive GitHub Wiki**: **[UnB-COMNET/lft Wiki](https://github.com/UnB-COMNET/lft/wiki)** (with sidebar navigation, diagrams, and quick references).
+- **Markdown Documentation**: Offline-browsable Markdown files in the [`docs/`](docs/) directory.
+- **Native DokuWiki Syntax**: Pre-formatted `.txt` files in [`dokuwiki/`](dokuwiki/) ready to import into local lab or university DokuWiki servers.
 
+### Documentation Index
+- **[Installation & Requirements](docs/Installation.md)**
+- **[LFT Core Architecture](docs/Architecture.md)**
+- **[Full API Reference](docs/API-Reference.md)**
+- **[SDN Topologies](docs/SDN-Topologies.md)**
+- **[Code Examples Walkthrough](docs/Code-Examples.md)** (covers all 8 scripts in `examples/`)
+- **[Experiments & Benchmarks](docs/Experiments-and-Benchmarks.md)** (deployment time, scalability, perfSONAR, wired and wireless benchmarks in `experiment/`)
+- **[Security Scenario: UNBCA / CIDDS](docs/Security-Scenario-UNBCA.md)** (enterprise topology, benign behaviors, attacks, and flow datasets in `scenario/`)
+- **[4G/LTE Cellular Emulation](docs/Wireless-4G-Emulation.md)** (srsRAN EPC, eNodeB, UEs, and ZMQ virtual radio)
+- **[Docker Image Catalog](docs/Docker-Images.md)** (specifications for all 11 Docker images)
+- **[Troubleshooting & Teardown](docs/Troubleshooting.md)**
+- **[Complete Master Manual (All-in-One)](docs/Master-Manual.md)** &bull; [`dokuwiki/LFT_MASTER_MANUAL.txt`](dokuwiki/LFT_MASTER_MANUAL.txt)

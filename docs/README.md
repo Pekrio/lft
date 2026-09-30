@@ -1,19 +1,20 @@
-# Documentação do LFT (Lightweight Fog Testbed)
+# LFT Documentation (Markdown)
 
-Esta pasta contém a versão em **Markdown** da documentação do LFT para leitura direta no GitHub.
-A documentação interativa oficial também está disponível na **[Aba Wiki do GitHub](https://github.com/UnB-COMNET/lft/wiki)**.
+This directory contains the GitHub Flavored Markdown version of the LFT documentation suite for offline reading and code-tree navigation.
 
-## Índice
+The interactive documentation is also published live on the **[UnB-COMNET/lft GitHub Wiki](https://github.com/UnB-COMNET/lft/wiki)**.
 
-- [🏠 Página Principal](Home.md)
-- [📦 Instalação e Requisitos](Instalacao.md)
-- [🏗️ Arquitetura do LFT](Arquitetura.md)
-- [📚 Referência Completa da API](API-Referencia.md)
-- [🌐 Topologias SDN](Topologias-SDN.md)
-- [💻 Exemplos Práticos de Código](Exemplos-de-Codigo.md)
-- [📡 Emulação 4G/LTE (srsRAN)](Emulacao-4G-LTE.md)
-- [🐳 Catálogo de Imagens Docker](Catalogo-de-Imagens-Docker.md)
-- [🛡️ Cenário UNBCA / CIDDS](Cenario-Seguranca-UNBCA.md)
-- [📊 Experimentos e Benchmarks](Experimentos-e-Benchmarks.md)
-- [🔧 Resolução de Problemas](Resolucao-de-Problemas.md)
-- [📖 Manual Completo (1 Página)](Manual-Completo.md)
+## Table of Contents
+
+- [🏠 Home](Home.md)
+- [📦 Installation & Requirements](Installation.md)
+- [🏗️ Architecture](Architecture.md)
+- [📚 Full API Reference](API-Reference.md)
+- [🌐 SDN Topologies](SDN-Topologies.md)
+- [💻 Code Examples (examples/)](Code-Examples.md)
+- [📊 Experiments & Benchmarks](Experiments-and-Benchmarks.md)
+- [🛡️ Security Scenario: UNBCA / CIDDS](Security-Scenario-UNBCA.md)
+- [📡 4G/LTE Cellular Emulation](Wireless-4G-Emulation.md)
+- [🐳 Docker Image Catalog](Docker-Images.md)
+- [🔧 Troubleshooting & Teardown](Troubleshooting.md)
+- [📖 Master Manual (All-in-One)](Master-Manual.md)
