@@ -1,0 +1,68 @@
+====== Experimentos e Benchmarks no LFT ======
+
+O diretório ''experiment/'' do LFT reúne os códigos de validação científica do framework, contendo suítes de teste de desempenho, medições de tempo de deploy comparadas ao **Mininet** e integração com a ferramenta de diagnóstico de rede **PerfSONAR (pscheduler)**.
+
+----
+
+===== 1. Comparativo de Tempo de Deploy: LFT vs. Mininet =====
+
+O script ''measure_deploy_time.py'' realiza ensaios controlados medindo o tempo decorrido para instanciar, interconectar e configurar endereçamento IP em topologias estrela de diferentes escalas (de 1 a centenas de hosts).
+
+==== Estrutura do Teste ====
+  * **LFT** (''deploy_lft.py''):
+    * Instancia 1 switch Open vSwitch via contêiner Docker.
+    * Instancia $N$ contêineres hosts leves.
+    * Conecta cada host ao switch com pares ''veth'' e configura os IPs.
+  * **Mininet** (''deploy_mininet.py''):
+    * Instancia 1 switch OVS gerenciado pelo Mininet.
+    * Adiciona $N$ hosts no Mininet e conecta via links virtuais Mininet.
+
+==== Como Executar o Benchmark ====
+<code bash>
+cd experiment/
+python3 measure_deploy_time.py
+</code>
+
+Os resultados são salvos em formato CSV no diretório ''results/data/'', contendo métricas de:
+  - Tempo de criação de contêineres/hosts.
+  - Tempo de enlace e atribuição de IPs.
+  - Consumo de memória RAM e CPU.
+
+----
+
+===== 2. Integração com PerfSONAR e pscheduler =====
+
+O módulo ''pschedulerWrapper.py'' encapsula as chamadas da ferramenta oficial **pscheduler** do PerfSONAR para orquestrar tarefas de medição entre contêineres:
+
+==== Tipos de Testes Suportados ====
+
+^ Tipo de Teste ^ Parâmetros ^ Métrica Obtida ^
+| **RTT / Latência** | ''runRtt(dest, count=10)'' | Round-Trip Time médio, mínimo e máximo (ms). |
+| **Throughput (Vazão)** | ''runThroughput(dest, duration="10s")'' | Largura de banda real alcançada (bps / Mbps) via iperf3. |
+| **Perda de Pacotes** | ''runLoss(dest)'' | Percentual de pacotes descartados no enlace. |
+| **Latência Unidirecional (OWAMP)** | ''runLatency(dest)'' | Atraso unidirecional de transmissão. |
+
+==== Exemplo de Uso ====
+<code python>
+from experiment.pschedulerWrapper import PschedulerWrapper
+
+tester = PschedulerWrapper()
+
+# Executa teste de RTT de 10 pacotes entre dois nós
+rtt_result = tester.runRtt(sourceIp="10.0.0.1", destIp="10.0.0.2", count=10)
+print(f"RTT Médio: {rtt_result['mean']} ms")
+
+# Executa teste de Throughput iperf3 por 15 segundos
+tp_result = tester.runThroughput(sourceIp="10.0.0.1", destIp="10.0.0.2", duration="15s")
+print(f"Vazão Média: {tp_result['throughput_mbps']} Mbps")
+</code>
+
+----
+
+===== 3. Experimentos Fog e Edge: Emulado vs. Físico =====
+
+O LFT suporta quatro combinações experimentais nos scripts de teste:
+  * **Emu-Emu Wired** (''emu_emu_wired.py''): Topologia cabeada completamente virtualizada em contêineres no mesmo host.
+  * **Emu-Emu Wireless** (''emu_emu_wireless.py''): Topologia sem fio 4G/LTE com canal ZMQ entre eNB e UEs virtuais.
+  * **Emu-Phy Wired** (''emu_phy_wired.py''): Nós emulados no LFT comunicando-se com switches físicos reais através de placas de rede Ethernet dedicadas.
+  * **Emu-Phy Wireless** (''emu_phy_wireless.py''): eNodeB do LFT transmitindo via rádio físico real (SDR USRP B210 / LimeSDR) para telefones celulares reais.

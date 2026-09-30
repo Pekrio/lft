@@ -36,3 +36,13 @@ If you face any issue while running any LFT scrips:
 3. Check if the containers are already instantiated on docker ```docker ps -a```. If so, then remove them by using ```docker system prune``` or forcefully stop them ```docker rm -f containerName```
 4. Verify if the docker image that you are trying to instantiate with LFT exists on your local machine ```docker images``` or exists on [Docker Hub|https://hub.docker.com/].
 5. Check if the image was built correctly. See docker folder for more information.
+
+## 5. Documentation (DokuWiki)
+Complete, in-depth documentation formatted natively for **DokuWiki** is available in the [`dokuwiki/`](dokuwiki/) directory. It includes:
+- **API Reference**: Detailed breakdown of every class (`Node`, `Host`, `Switch`, `Controller`, `CICFlowMeter`, `EPC`, `EnB`, `UE`, `Perfsonar`) and method.
+- **Architecture**: Linux network namespaces, `veth` pairs, OVS, and NAT.
+- **Topologies & Examples**: Full guides with code for SDN, multi-subnet, multi-controller, NetFlow, and 4G/LTE.
+- **Security Scenario**: UNBCA / CIDDS attack environment reproduction.
+- **Single-page Master Manual**: [`dokuwiki/LFT_MANUAL_COMPLETO.txt`](dokuwiki/LFT_MANUAL_COMPLETO.txt).
+
+See [`dokuwiki/README.md`](dokuwiki/README.md) for instructions on importing into DokuWiki or publishing to GitHub Wiki.

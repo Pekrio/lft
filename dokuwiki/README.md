@@ -6,16 +6,20 @@ Este diretório contém a documentação completa do framework **LFT (Lightweigh
 
 ```
 dokuwiki/
-├── sidebar.txt             # Menu lateral de navegação da wiki
-├── start.txt               # Página inicial e índice geral
-├── instalacao.txt          # Requisitos de sistema e procedimentos de instalação
-├── arquitetura.txt         # Arquitetura (namespaces, veth, OVS, roteamento e NAT)
-├── api_referencia.txt      # Referência completa de classes, métodos e parâmetros
-├── sdn_topologias.txt      # Guia de construção de topologias SDN programáveis
-├── srsran_4g.txt           # Emulação de redes celulares 4G/LTE com srsRAN
-├── cenario_seguranca.txt   # Documentação do cenário de segurança UNBCA / CIDDS
-├── troubleshooting.txt     # Guia de diagnóstico e resolução de problemas
-└── README.md               # Este arquivo de instruções
+├── sidebar.txt                 # Menu lateral de navegação da wiki
+├── start.txt                   # Página inicial e índice geral
+├── instalacao.txt              # Requisitos de sistema e procedimentos de instalação
+├── arquitetura.txt             # Arquitetura (namespaces, veth, OVS, roteamento e NAT)
+├── api_referencia.txt          # Referência completa de classes, métodos e parâmetros
+├── sdn_topologias.txt          # Guia de construção de topologias SDN programáveis
+├── exemplos_topologias.txt     # Exemplos práticos de código comentados (examples/)
+├── srsran_4g.txt               # Emulação de redes celulares 4G/LTE com srsRAN
+├── docker_imagens.txt          # Catálogo e especificação das imagens Docker
+├── cenario_seguranca.txt       # Documentação do cenário de segurança UNBCA / CIDDS
+├── experimentos_benchmarks.txt # Guias de experimentos, benchmarks e métricas
+├── troubleshooting.txt         # Guia de diagnóstico e resolução de problemas
+├── LFT_MANUAL_COMPLETO.txt     # Manual mestre compilado em uma única página
+└── README.md                   # Este arquivo de instruções
 ```
 
 ---

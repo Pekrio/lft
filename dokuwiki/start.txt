@@ -32,16 +32,25 @@ Este wiki contém toda a documentação necessária para entender, instalar, ope
     * Exemplo de topologia simples (Hosts + Switch + Controller)
     * Configuração de controle de tráfego (TC netem - delay, jitter, rate)
     * Conexão com a Internet e gateways
-  * [[srsran_4g|5. Emulação Sem Fio 4G/LTE (srsRAN)]]
+  * [[exemplos_topologias|5. Exemplos Práticos de Código (examples/)]]
+    * Scripts comentados de ponta a ponta
+    * Topologia direta, SDN, multi-subrede, multi-controlador, NetFlow
+  * [[srsran_4g|6. Emulação Sem Fio 4G/LTE (srsRAN)]]
     * Configuração do EPC (MME, SPGW, banco de usuários)
     * Configuração da eNodeB (ZMQ / GNU Radio)
     * Conexão de UEs e alocação de IPs
-  * [[cenario_seguranca|6. Cenário de Segurança e Ataques (UNBCA / CIDDS)]]
+  * [[docker_imagens|7. Catálogo de Imagens Docker]]
+    * Especificação de cada contêiner, portas, serviços e propósito
+  * [[cenario_seguranca|8. Cenário de Segurança e Ataques (UNBCA / CIDDS)]]
     * Topologia corporativa multi-subrede
     * Comportamentos de clientes benignos e atacantes
     * Captura de pacotes e conversão para datasets de intrusão
-  * [[troubleshooting|7. Resolução de Problemas]]
+  * [[experimentos_benchmarks|9. Experimentos e Benchmarks]]
+    * Procedimentos experimentais, métricas e análise de desempenho
+  * [[troubleshooting|10. Resolução de Problemas]]
     * Dúvidas comuns, diagnóstico de conectividade e comandos de limpeza
+  * [[LFT_MANUAL_COMPLETO|11. Manual Completo (Tudo em 1 Página)]]
+    * Compilado unificado de toda a documentação para consulta rápida ou impressão
 
 ----
 
