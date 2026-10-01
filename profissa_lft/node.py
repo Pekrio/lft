@@ -105,15 +105,15 @@ class Node:
         self.__setInterface(self.getNodeName(), interfaceName)
         self.__setInterface(node.getNodeName(), peerInterfaceName)
 
-        if self.__class__.__name__ == 'Switch':
-            self._Switch__createPort(self.getNodeName(), self.__getThisInterfaceName(node))
-        if node.__class__.__name__ == 'Switch':
-            node._Switch__createPort(node.getNodeName(), node.__getThisInterfaceName(self))
+        if hasattr(self, '_Switch__createPort'):
+            self._Switch__createPort(self.getNodeName(), interfaceName)
+        if hasattr(node, '_Switch__createPort'):
+            node._Switch__createPort(node.getNodeName(), peerInterfaceName)
     
     def connectToInternet(self, hostIP: str, hostMask: int, interfaceName: str, hostInterfaceName: str) -> None:
         self.__create(interfaceName, hostInterfaceName)
         self.__setInterface(self.getNodeName(), interfaceName)
-        if self.__class__.__name__ == 'Switch':
+        if hasattr(self, '_Switch__createPort'):
             self._Switch__createPort(self.getNodeName(), interfaceName)
         
         self.networkingAdapter.setLinkUp(hostInterfaceName)
@@ -315,8 +315,8 @@ class Node:
     # Params:
     # Return:
     #   Return a list with the name of all interfaces
-    def __getAllIntefaces(self) -> list:
-        output = self.containerAdapter.run("ifconfig -a | sed 's/[ \t].*//;/^$/d'")
+    def __getAllInterfaces(self) -> list:
+        output = subprocess.run(f"docker exec {self.getNodeName()} ifconfig -a | sed 's/[ \t].*//;/^$/d'", shell=True, capture_output=True)
         interfaces=output.stdout.decode('utf8').replace(":", '').split('\n')
         return list(filter(None, interfaces)) # Remove empty strings
 
