@@ -15,5 +15,3 @@ do
   done
   echo "${packagesAptGet[$i-1]} found."
 done
-
-pip install pandas
