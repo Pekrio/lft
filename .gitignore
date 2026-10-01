@@ -16,6 +16,7 @@ profissa_lft/TransportSecurity
 profissa_lft/User/
 profissa_lft/languagepacks.json
 profissa_lft/logs/
+**/__pycache__/
 profissa_lft/machineid
 onos_topologies/dash_topology/__pycache__
 demonstration/__pycache__
